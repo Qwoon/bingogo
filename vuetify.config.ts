@@ -149,7 +149,7 @@ export default defineVuetifyConfiguration({
         dark: false,
         colors: {
           primary: '#FBBF24',
-          secondary: '#8A8D93',
+          secondary: '#2460FB',
           'on-secondary': '#fff',
           success: '#00CC9A',
           info: '#00D0FF',
@@ -158,7 +158,7 @@ export default defineVuetifyConfiguration({
           'on-primary': '#FFFFFF',
           'on-success': '#FFFFFF',
           'on-warning': '#FFFFFF',
-          background: '#F8E4DD',
+          background: '#FFF8F0',
           'on-background': '#3A3541',
           'on-surface': '#3A3541',
           'grey-50': '#F9FAFB',
@@ -173,14 +173,7 @@ export default defineVuetifyConfiguration({
           'grey-900': '#111827',
         },
         variables: {
-          'border-color': '#3A3541',
           'medium-emphasis-opacity': 0.68,
-
-          // Shadows
-          'shadow-key-umbra-opacity': 'rgba(var(--v-theme-on-surface), 0.08)',
-          'shadow-key-penumbra-opacity':
-            'rgba(var(--v-theme-on-surface), 0.12)',
-          'shadow-key-ambient-opacity': 'rgba(var(--v-theme-on-surface), 0.04)',
         },
       },
     },

@@ -17,11 +17,5 @@ export default defineNuxtConfig({
     vuetifyOptions: './vuetify.config.ts',
   },
 
-  modules: [
-    '@nuxt/fonts',
-    'vuetify-nuxt-module',
-    '@pinia/nuxt',
-    '@vueuse/nuxt',
-    'nuxt-svgo',
-  ],
+  modules: ['@nuxt/fonts', 'vuetify-nuxt-module', '@vueuse/nuxt', 'nuxt-svgo'],
 });
