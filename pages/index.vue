@@ -12,7 +12,7 @@ interface Tile {
 let tiles = ref<Tile[][]>([
   [
     {
-      title: 'Нереалистичнo',
+      title: 'Нереалистичноооооооo',
       isChecked: false,
     },
     {
@@ -96,7 +96,7 @@ function endGame(): void {
                   isChecked(rowIndex, colIndex) ? 'bg-primary' : 'bg-secondary'
                 "
               >
-                <VCardTitle class="text d-flex flex-wrap text-wrap">
+                <VCardTitle class="tile-text d-flex flex-wrap text-wrap">
                   {{ col.title }}
                 </VCardTitle>
               </VCard>
@@ -107,3 +107,11 @@ function endGame(): void {
     </div>
   </section>
 </template>
+
+<style scoped langs="scss">
+.tile-text {
+  width: fit-content;
+  word-break: break-word;
+  text-align: center;
+}
+</style>
