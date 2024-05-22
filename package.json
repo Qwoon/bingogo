@@ -10,8 +10,15 @@
   },
   "devDependencies": {
     "@nuxt/devtools": "^1.0.3",
+    "@nuxt/fonts": "^0.7.0",
     "nuxt": "^3.8.2",
+    "nuxt-svgo": "^4.0.1",
     "vue": "^3.3.8",
-    "vue-router": "^4.2.5"
+    "vue-router": "^4.2.5",
+    "vuetify-nuxt-module": "^0.14.1"
+  },
+  "dependencies": {
+    "@pinia/nuxt": "^0.5.1",
+    "@vueuse/nuxt": "^10.9.0"
   }
 }

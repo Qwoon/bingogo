@@ -1,8 +1,27 @@
+import { fileURLToPath } from 'url';
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: true },
+
+  alias: {
+    images: fileURLToPath(new URL('./assets/images', import.meta.url)),
+    style: fileURLToPath(new URL('./assets/style', import.meta.url)),
+  },
+
   routeRules: {
-    // prerender index route by default
     '/': { prerender: true },
   },
+
+  vuetify: {
+    moduleOptions: {},
+    vuetifyOptions: './vuetify.config.ts',
+  },
+
+  modules: [
+    '@nuxt/fonts',
+    'vuetify-nuxt-module',
+    '@pinia/nuxt',
+    '@vueuse/nuxt',
+    'nuxt-svgo',
+  ],
 });
