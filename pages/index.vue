@@ -84,7 +84,7 @@ function endGame(): void {
       <VRow v-for="(row, rowIndex) in tiles">
         <VCol v-for="(col, colIndex) in row">
           <VHover>
-            <template #default="{ isHovering, props }">
+            <template v-slot:default="{ isHovering, props }">
               <VCard
                 v-bind="props"
                 :elevation="isHovering ? 15 : 6"
