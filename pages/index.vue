@@ -79,9 +79,20 @@ function onTileCheck(
 
 function flipCard(elementId: string) {
   $anime({
-    targets: `#${elementId}`,
+    targets: [`#f-${elementId}`],
     scale: [{ value: 1 }, { value: 1 }, { value: 1 }],
     rotateY: { value: '+=180', delay: 200 },
+    easing: 'easeInOutSine',
+    duration: 200,
+  });
+
+  // this is a shit-hack, since I couldn't resolve it with CSS.
+  // Anime.js resets the transformation and then rotates the element
+  // Which causes the element to rotate 360 deg from the point of 180
+  $anime({
+    targets: [`#b-${elementId}`],
+    scale: [{ value: 1 }, { value: 1 }, { value: 1 }],
+    rotateY: { value: '+=360', delay: 200 },
     easing: 'easeInOutSine',
     duration: 200,
   });
@@ -105,7 +116,10 @@ function endGame(): void {
         <VCol v-for="(col, colIndex) in row">
           <VHover>
             <template v-slot:default="{ isHovering, props }">
-              <div class="position-relative">
+              <div
+                class="position-relative"
+                style="backface-visibility: hidden"
+              >
                 <VCard
                   v-bind="props"
                   :elevation="isHovering ? 15 : 6"
@@ -115,7 +129,7 @@ function endGame(): void {
                   style="backface-visibility: hidden"
                   :id="`b-${rowIndex}-${colIndex}`"
                   @click="
-                    onTileCheck(`b-${rowIndex}-${colIndex}`, rowIndex, colIndex)
+                    onTileCheck(`${rowIndex}-${colIndex}`, rowIndex, colIndex)
                   "
                   :class="
                     isChecked(rowIndex, colIndex)
@@ -136,7 +150,7 @@ function endGame(): void {
                   style="backface-visibility: hidden"
                   :id="`f-${rowIndex}-${colIndex}`"
                   @click="
-                    onTileCheck(`f-${rowIndex}-${colIndex}`, rowIndex, colIndex)
+                    onTileCheck(`${rowIndex}-${colIndex}`, rowIndex, colIndex)
                   "
                   :class="
                     isChecked(rowIndex, colIndex)
@@ -166,12 +180,7 @@ function endGame(): void {
 
 .card-back {
   top: 0;
-  left: 0;
+  left: 0px;
   position: absolute;
-  transform: rotateY(180deg);
-  -webkit-transform: rotateY(180deg);
-  -moz-transform: rotateY(180deg);
-  -ms-transform: rotateY(180deg);
-  -o-transform: rotateY(180deg);
 }
 </style>
