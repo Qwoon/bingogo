@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import party from 'party-js';
 interface Board {
   title: string;
   tiles: Tile[][];
@@ -41,6 +42,12 @@ let tiles = ref<Tile[][]>([
     },
   ],
 ]);
+
+const startParty = () => {
+  party.confetti(party.Rect.fromScreen(), {
+    count: party.variation.range(100, 200),
+  });
+};
 
 let uncheckedTilesCount = ref<number>();
 
@@ -101,7 +108,7 @@ function flipCard(elementId: string) {
 }
 
 function endGame(): void {
-  alert('Play Animation');
+  startParty();
 
   // reset
   for (let i in tiles.value)
