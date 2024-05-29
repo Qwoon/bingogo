@@ -23,5 +23,6 @@ export default defineNuxtConfig({
     '@vueuse/nuxt',
     'nuxt-svgo',
     '@hypernym/nuxt-anime',
+    'nuxt-icon',
   ],
 });

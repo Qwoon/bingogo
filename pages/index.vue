@@ -77,6 +77,8 @@ function onTileCheck(
     .filter((x) => !x).length;
 }
 
+// FIXME: It might be a better idea to flip +180deg and second time -180deg
+// so that we dont go above 360deg
 function flipCard(elementId: string) {
   $anime({
     targets: [`#f-${elementId}`],
@@ -103,7 +105,10 @@ function endGame(): void {
 
   // reset
   for (let i in tiles.value)
-    for (let k in tiles.value[i]) tiles.value[i][k].isChecked = false;
+    for (let k in tiles.value[i]) {
+      tiles.value[i][k].isChecked = false;
+      flipCard(`${i}-${k}`);
+    }
 
   // Flip cards back
 }
@@ -125,7 +130,7 @@ function endGame(): void {
                   :elevation="isHovering ? 15 : 6"
                   width="150"
                   height="150"
-                  class="card-back position-absolute d-flex justify-center align-center cursor-pointer relative"
+                  class="card-back position-absolute d-flex justify-center align-center cursor-pointer position-relative"
                   style="backface-visibility: hidden"
                   :id="`b-${rowIndex}-${colIndex}`"
                   @click="
@@ -137,8 +142,13 @@ function endGame(): void {
                       : 'bg-secondary'
                   "
                 >
+                  <Icon
+                    name="ic:round-check-circle"
+                    size="64"
+                    class="position-absolute mx-auto right-0 left-0 opacity-50"
+                  />
                   <VCardTitle class="tile-text d-flex flew-wrap text-wrap">
-                    Flipped
+                    {{ col.title }}
                   </VCardTitle>
                 </VCard>
                 <VCard
