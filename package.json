@@ -23,6 +23,7 @@
   "dependencies": {
     "@pinia/nuxt": "^0.5.1",
     "@vueuse/nuxt": "^10.9.0",
-    "party-js": "^2.2.0"
+    "party-js": "^2.2.0",
+    "pinia": "^2.1.7"
   }
 }
