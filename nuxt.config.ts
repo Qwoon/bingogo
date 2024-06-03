@@ -24,5 +24,6 @@ export default defineNuxtConfig({
     'nuxt-svgo',
     '@hypernym/nuxt-anime',
     'nuxt-icon',
+    '@pinia/nuxt',
   ],
 });
