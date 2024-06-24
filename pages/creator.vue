@@ -18,6 +18,8 @@ onBeforeRouteLeave((to, from, next) => {
 
     if (answer) next();
     else next(false);
+  } else {
+    next();
   }
 });
 
