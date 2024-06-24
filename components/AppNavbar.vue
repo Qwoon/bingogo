@@ -13,7 +13,7 @@ const navItems = [
   },
   {
     title: 'My boards',
-    to: { name: 'creator' },
+    to: { name: 'my-boards' },
   },
 ];
 let showDrawer = ref<boolean>(false);
