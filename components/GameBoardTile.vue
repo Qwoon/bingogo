@@ -62,7 +62,7 @@ function flipCard(elementId: string) {
       <div class="position-relative" style="backface-visibility: hidden">
         <VCard
           v-bind="props"
-          :elevation="isHovering ? 15 : 6"
+          :elevation="isHovering ? 16 : 6"
           width="150"
           height="150"
           class="card-back position-absolute d-flex justify-center align-center cursor-pointer position-relative"
