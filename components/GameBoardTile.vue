@@ -1,10 +1,7 @@
 <script setup lang="ts">
-export interface Tile {
-  title: string;
-  isChecked: boolean;
-}
+import type { Tile } from '~/api';
 
-interface Props extends Tile {
+interface Props extends Tile.Props {
   rowIndex: number;
   colIndex: number;
 }

@@ -25,5 +25,6 @@ export default defineNuxtConfig({
     '@hypernym/nuxt-anime',
     'nuxt-icon',
     '@pinia/nuxt',
+    '@vee-validate/nuxt',
   ],
 });
