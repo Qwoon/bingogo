@@ -1,13 +1,32 @@
 <script setup lang="ts">
 const store = useGameStore();
-
 const { currentGameName } = storeToRefs(store);
+
+const navItems = [
+  {
+    title: 'Home',
+    to: { name: 'index' },
+  },
+  {
+    title: 'Create board',
+    to: { name: 'creator' },
+  },
+  {
+    title: 'My boards',
+    to: { name: 'creator' },
+  },
+];
+let showDrawer = ref<boolean>(false);
+
+onBeforeMount(() => {
+  showDrawer.value = false;
+});
 </script>
 
 <template>
   <VAppBar app dense scroll-behavior="hide" class="bg-transparent">
     <template #prepend>
-      <VAppBarNavIcon></VAppBarNavIcon>
+      <VAppBarNavIcon @click="showDrawer = !showDrawer"></VAppBarNavIcon>
     </template>
 
     <template #title v-if="$vuetify.display.mdAndUp">
@@ -27,6 +46,24 @@ const { currentGameName } = storeToRefs(store);
       <VBtn append-icon="mdi-login" variant="elevated"> Login </VBtn>
     </template>
   </VAppBar>
+
+  <VNavigationDrawer
+    v-model="showDrawer"
+    class="bg-transparent"
+    :location="$vuetify.display.mobile ? 'bottom' : undefined"
+  >
+    <VList lines="one">
+      <VListItem
+        class="bg-transparent"
+        link
+        v-for="nav in navItems"
+        :key="nav.title"
+        :to="nav.to"
+        :title="nav.title"
+      >
+      </VListItem>
+    </VList>
+  </VNavigationDrawer>
 </template>
 
 <style scoped lang="scss">
