@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { Tile } from '~/api';
 
-interface Props extends Tile.Props {
+interface Props extends /* @vue-ignore */ Tile.Props {
   rowIndex: number;
   colIndex: number;
 }
