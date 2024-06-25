@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import type { Tile } from '~/api';
-
-interface Props extends /* @vue-ignore */ Tile.Props {
+interface Props {
   rowIndex: number;
   colIndex: number;
+  title: string;
+  isChecked: boolean;
 }
 
 interface Emit {

@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import type { Tile } from './GameBoardTile.vue';
+import type { Tile } from '~/api';
 
-let tiles = ref<Tile[][]>([
+let tiles = ref<Tile.Props[][]>([
   [
     {
       title: 'Нереалистичноооооооo',
