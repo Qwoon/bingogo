@@ -1,5 +1,5 @@
 import { array, boolean, object, string, type AnySchema } from 'yup';
-import type { Tile } from '~/api';
+import type { Tile } from '~/apps/bingogo-app/api';
 import { reset } from './reset';
 
 export interface BoardForm {
