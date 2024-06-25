@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Tile } from '~/api';
+import type { Tile } from '~/apps/bingogo-app/api';
 
 let tiles = ref<Tile.Props[][]>([
   [

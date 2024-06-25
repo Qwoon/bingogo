@@ -1,0 +1,25 @@
+name: 'Deploy: App'
+on:
+  workflow_call:
+    inputs:
+      environment:
+        type: string
+        default: 'Development'
+        description: 'Environment'
+
+  workflow_dispatch:
+    inputs:
+      environment:
+        type: string
+        default: 'Experimental'
+        description: 'Environment'
+
+jobs:
+  deploy:
+    name: 'Deploy'
+    uses: ./.github/workflows/_vercel-deploy.yaml
+    secrets: inherit
+    with:
+      dir: './apps/bingogo-app'
+      project_id: ${{ vars.VERCEL_PROJECT_ID }}
+      environment: ${{ inputs.environment }}
