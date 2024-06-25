@@ -1,0 +1,64 @@
+on:
+  workflow_call:
+    inputs:
+      cname:
+        type: string
+        description: 'Canonical Name'
+      project_id:
+        type: string
+        description: 'Vercel Project ID'
+      environment:
+        type: string
+        default: 'Development'
+        description: 'Environment'
+      dir:
+        type: string
+        default: '.'
+        description: 'Working directory'
+
+env:
+  VERCEL_ORG_ID: ${{ vars.VERCEL_TEAM_ID }}
+  VERCEL_PROJECT_ID: ${{ inputs.project_id }}
+
+jobs:
+  build:
+    name: 'Build'
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.environment }}
+    steps:
+      - name: 'Checkout'
+        uses: 'actions/checkout@main'
+
+      - name: 'Repository Variables'
+        uses: infovista-opensource/vars-to-env-action@2.0.0
+        if: vars
+        with:
+          secrets: ${{ toJSON(vars) }}
+          override: true
+
+      - name: 'Pull Environment'
+        working_directory: ${{ inputs.dir }}
+        run: >-
+          vercel pull -y
+          --environment=${{ vars.VERCEL_ENV }}
+          --token=${{ secrets.VERCEL_TOKEN }}
+
+      - name: 'Build'
+        working_directory: ${{ inputs.dir }}
+        run: >-
+          vercel build --no-color
+          --token=${{ secrets.VERCEL_TOKEN }}
+          ${{ vars.VERCEL_ENV == 'production' && '--prod' || '' }}
+
+      - name: 'Deploy'
+        id: deploy
+        working_directory: ${{ inputs.directory }}
+        run: |-
+          vercel deploy -y --prebuild --skip-domain \
+            --meta ENV='exp'
+            --meta SHA=${GITHUB_SHA::7}
+            --token=${{ secrets.VERCEL_TOKEN }}
+            ${{ vars.VERCEL_ENV == 'production' && '--prod' || '' }}
+            >> deploy.txt
+
+          echo "url=$(cat deploy.txt)" >> $GITHUB_OUTPUT
