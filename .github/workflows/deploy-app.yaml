@@ -20,6 +20,6 @@ jobs:
     uses: ./.github/workflows/_vercel-deploy.yaml
     secrets: inherit
     with:
-      dir: 'apps/bingogo-app'
+      dir: './apps/bingogo-app'
       project_id: ${{ vars.VERCEL_PROJECT_ID }}
       environment: ${{ inputs.environment }}
