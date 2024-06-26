@@ -37,18 +37,21 @@ jobs:
           override: true
 
       - name: 'Pull Environment'
+        working-directory: ${{ inputs.dir }}
         run: >-
           vercel pull -y
           --environment=${{ vars.VERCEL_ENV }}
           --token=${{ secrets.VERCEL_TOKEN }}
 
       - name: 'Build'
+        working-directory: ${{ inputs.dir }}
         run: >-
           vercel build --no-color
           --token=${{ secrets.VERCEL_TOKEN }}
           ${{ vars.VERCEL_ENV == 'production' && '--prod' || '' }}
 
       - name: 'Deploy'
+        working-directory: ${{ inputs.dir }}
         id: deploy
         run: |-
           vercel deploy -y --prebuilt --skip-domain \
