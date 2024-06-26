@@ -55,10 +55,10 @@ jobs:
         id: deploy
         run: |-
           vercel deploy -y --prebuilt --skip-domain \
-            --meta ENV='exp'
-            --meta SHA=${GITHUB_SHA::7}
-            --token=${{ secrets.VERCEL_TOKEN }}
-            ${{ vars.VERCEL_ENV == 'production' && '--prod' || '' }}
+            --meta ENV='exp' \
+            --meta SHA=${GITHUB_SHA::7} \
+            --token=${{ secrets.VERCEL_TOKEN }} \
+            ${{ vars.VERCEL_ENV == 'production' && '--prod' || '' }} \
             >> deploy.txt
 
           echo "url=$(cat deploy.txt)" >> $GITHUB_OUTPUT
