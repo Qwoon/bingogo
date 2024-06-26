@@ -2,7 +2,8 @@
   <section class="h-screen d-flex flex-wrap justify-center align-center">
     <VCard class="pa-5 ma-4" color="primary">
       <VCardTitle
-        >Welcome to Bingogo <Icon name="mdi:gamepad-variant-outline"></Icon
+        >Welcome to Bingogo v0.0.1
+        <Icon name="mdi:gamepad-variant-outline"></Icon
       ></VCardTitle>
       <VCardSubtitle
         >Create your own bingo game and play with friends</VCardSubtitle

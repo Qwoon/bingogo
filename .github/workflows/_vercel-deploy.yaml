@@ -37,14 +37,12 @@ jobs:
           override: true
 
       - name: 'Pull Environment'
-        working-directory: ${{ inputs.dir }}
         run: >-
           vercel pull -y
           --environment=${{ vars.VERCEL_ENV }}
           --token=${{ secrets.VERCEL_TOKEN }}
 
       - name: 'Build'
-        working-directory: ${{ inputs.dir }}
         run: >-
           vercel build --no-color
           --token=${{ secrets.VERCEL_TOKEN }}
@@ -52,9 +50,8 @@ jobs:
 
       - name: 'Deploy'
         id: deploy
-        working-directory: ${{ inputs.directory }}
         run: |-
-          vercel deploy -y --prebuild --skip-domain \
+          vercel deploy -y --prebuilt --skip-domain \
             --meta ENV='exp'
             --meta SHA=${GITHUB_SHA::7}
             --token=${{ secrets.VERCEL_TOKEN }}
