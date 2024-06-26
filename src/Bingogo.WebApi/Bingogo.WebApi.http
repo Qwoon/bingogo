@@ -1,0 +1,6 @@
+@Bingogo.WebApi_HostAddress = http://localhost:5049
+
+GET {{Bingogo.WebApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
