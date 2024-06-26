@@ -47,6 +47,7 @@ jobs:
         working-directory: ${{ inputs.dir }}
         run: >-
           vercel build --no-color
+          --debug
           --token=${{ secrets.VERCEL_TOKEN }}
           ${{ vars.VERCEL_ENV == 'production' && '--prod' || '' }}
 
