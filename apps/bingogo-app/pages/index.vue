@@ -2,7 +2,7 @@
   <section class="h-screen d-flex flex-wrap justify-center align-center">
     <VCard class="pa-5 ma-4" color="primary">
       <VCardTitle
-        >Welcome to Bingogo v0.0.1
+        >Welcome to Bingogo v0.0.2
         <Icon name="mdi:gamepad-variant-outline"></Icon
       ></VCardTitle>
       <VCardSubtitle
