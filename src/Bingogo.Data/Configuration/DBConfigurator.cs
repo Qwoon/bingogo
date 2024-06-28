@@ -53,11 +53,9 @@ public static class DBConfigurator
                 .HasDefaultValue(false);
 
             entity.Property(x => x.GameMode)
-                .IsRequired()
                 .HasDefaultValue(1);
 
             entity.Property(x => x.GameType)
-                .IsRequired()
                 .HasDefaultValue(1);
 
             entity.HasOne(x => x.CreatedBy)
