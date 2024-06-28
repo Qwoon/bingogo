@@ -6,11 +6,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Bingogo.Data.Context;
 
-public class BingogoSellContext : IdentityDbContext<User, IdentityRole<long>, long>
+public class BingogoContext : IdentityDbContext<User, IdentityRole<long>, long>
 {
-    public BingogoSellContext() { }
+    public BingogoContext() { }
 
-    public BingogoSellContext(DbContextOptions options) : base(options) { }
+    public BingogoContext(DbContextOptions options) : base(options) { }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
