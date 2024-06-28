@@ -1,4 +1,5 @@
 ﻿using Bingogo.Core.Data;
+using Bingogo.Models.Enums;
 
 namespace Bingogo.Data.Entities;
 
@@ -31,6 +32,16 @@ public class Board : IEntity<long>, IHistorical
     /// Currenlty no implementation for events exist. 
     /// </remarks>
     public bool HasEvents { get; set; }
+
+    /// <summary>
+    /// Gets or sets the game mode.
+    /// </summary>
+    public GameMode GameMode { get; set; }
+
+    /// <summary>
+    /// Gets or sets the game type.
+    /// </summary>
+    public GameType GameType { get; set; }
 
     /// <summary>
     /// Gets or sets the board tiles.
