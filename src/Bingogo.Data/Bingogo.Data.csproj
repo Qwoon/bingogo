@@ -17,7 +17,6 @@
   <ItemGroup>
     <ProjectReference Include="..\Bingogo.Core\Bingogo.Core.csproj" />
     <ProjectReference Include="..\Bingogo.Models\Bingogo.Models.csproj" />
-    <ProjectReference Include="..\Bingogo.WebApi\Bingogo.WebApi.csproj" />
   </ItemGroup>
 
 </Project>

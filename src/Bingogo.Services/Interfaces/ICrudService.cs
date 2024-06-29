@@ -15,7 +15,7 @@ public interface ICrudService<T>
     Task<ICollection<T>> DeleteRangeAsync(IEnumerable<T> entities, CancellationToken cancellation = default);
 }
 
-public interface ICrudService<T, TKey>
+public interface ICrudService<T, TKey> : ICrudService<T>
     where T : class, IEntity<TKey>
     where TKey : struct
 {

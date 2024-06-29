@@ -11,5 +11,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Bingogo.Core\Bingogo.Core.csproj" />
+    <ProjectReference Include="..\Bingogo.Data\Bingogo.Data.csproj" />
+    <ProjectReference Include="..\Bingogo.Models\Bingogo.Models.csproj" />
+    <ProjectReference Include="..\Bingogo.Services\Bingogo.Services.csproj" />
   </ItemGroup>
 </Project>
