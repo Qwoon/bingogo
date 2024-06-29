@@ -1,9 +1,12 @@
-﻿namespace Bingogo.Services.Profiles;
+﻿using Bingogo.Data.Entities;
+using Bingogo.Models;
+
+namespace Bingogo.Services.Profiles;
 
 public class UserProfile : Profile
 {
     public UserProfile()
     {
-        // TODO: 
+        CreateMap<User, UserModel>().ReverseMap();
     }
 }
