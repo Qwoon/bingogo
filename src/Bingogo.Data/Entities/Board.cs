@@ -44,6 +44,14 @@ public class Board : IEntity<long>, IHistorical
     public GameType GameType { get; set; }
 
     /// <summary>
+    /// Gets or sets the game category. 
+    /// </summary>
+    /// <example>
+    /// There could be movies, games or music categories, or more specific like: Tekken, Twitch, etc.
+    /// </example>
+    public string Category { get; set; }
+
+    /// <summary>
     /// Gets or sets the board tiles.
     /// </summary>
     public ICollection<BoardTile> Tiles { get; set; }

@@ -1,6 +1,1 @@
-﻿namespace Bingogo.Services;
-
-public class GlobalUsings
-{
-
-}
+﻿global using AutoMapper;
