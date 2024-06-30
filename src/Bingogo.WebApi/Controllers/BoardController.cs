@@ -35,7 +35,7 @@ public class BoardController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IEnumerable<BoardModel>> Get([FromBody] BoardQuery query, [FromBody] ListQuery listQuery)
+    public async Task<IEnumerable<BoardModel>> Get([FromQuery] BoardQuery query, [FromBody] ListQuery listQuery)
     {
         var entiies = await _service
             .Search()

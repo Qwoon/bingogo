@@ -1,4 +1,5 @@
 ﻿using Bingogo.Data.Entities;
+using Bingogo.Models.Enums;
 using Microsoft.EntityFrameworkCore;
 
 namespace Bingogo.Data.Configuration;
@@ -53,10 +54,10 @@ public static class DBConfigurator
                 .HasDefaultValue(false);
 
             entity.Property(x => x.GameMode)
-                .HasDefaultValue(1);
+                .HasDefaultValue(GameMode.SinglePlayer);
 
             entity.Property(x => x.GameType)
-                .HasDefaultValue(1);
+                .HasDefaultValue(GameType.Classic);
 
             entity.HasOne(x => x.CreatedBy)
                 .WithMany(x => x.Boards)
