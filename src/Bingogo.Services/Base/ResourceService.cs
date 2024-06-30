@@ -1,5 +1,4 @@
 ﻿using Bingogo.Core.Data;
-using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
 namespace Bingogo.Services.Base;
@@ -30,7 +29,7 @@ public abstract class ResourceService<T> where T : class, IEntity
     public async Task<T> UpdateAsync(T entity, CancellationToken cancellation = default)
     {
         cancellation.ThrowIfCancellationRequested();
-        entity = Context.Add(entity).Entity;
+        entity = Context.Update(entity).Entity;
         await Context.SaveChangesAsync(cancellation);
         return entity;
     }
