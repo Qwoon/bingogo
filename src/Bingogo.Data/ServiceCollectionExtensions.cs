@@ -1,4 +1,6 @@
 ﻿using Bingogo.Data.Context;
+using Bingogo.Data.Entities;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.Extensions.Configuration;
@@ -14,9 +16,15 @@ public static class ServiceCollectionExtensions
 {
     private const string DefaultConnection = "name=MySql";
 
-    public static IServiceCollection ConfigureService(this IServiceCollection services, IConfiguration configuration)
+    public static IServiceCollection AddAppDb(this IServiceCollection services)
     {
-        // TODO: Register MySQL 
+        services.AddDbContextPool<DbContext, BingogoContext>(SetupMySql);
+
+        services.AddIdentityCore<User>()
+            .AddRoles<IdentityRole<long>>()
+            .AddRoleManager<RoleManager<IdentityRole<long>>>()
+            .AddEntityFrameworkStores<BingogoContext>();
+
         return services;
     }
 
