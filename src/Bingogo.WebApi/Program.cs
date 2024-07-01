@@ -27,8 +27,12 @@ namespace Bingogo.WebApi
             {
                 options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
             });
+
             builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
+            builder.Services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new() { Title = "Bingogo API", Version = "v1" });
+            });
 
             // Health 
             builder.Services
@@ -63,7 +67,10 @@ namespace Bingogo.WebApi
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
-                app.UseSwaggerUI();
+                app.UseSwaggerUI(c =>
+                {
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
+                });
             }
 
             // Controllers 
