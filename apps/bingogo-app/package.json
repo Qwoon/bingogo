@@ -25,6 +25,7 @@
     "@vee-validate/nuxt": "^4.13.1",
     "@vee-validate/yup": "^4.13.1",
     "@vueuse/nuxt": "^10.9.0",
+    "axios": "^1.7.2",
     "party-js": "^2.2.0",
     "pinia": "^2.1.7",
     "yup": "^1.4.0"

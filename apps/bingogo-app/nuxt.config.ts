@@ -3,6 +3,12 @@ import { fileURLToPath } from 'url';
 export default defineNuxtConfig({
   devtools: { enabled: true },
 
+  typescript: {
+    tsConfig: {
+      strictNu,
+    },
+  },
+
   alias: {
     images: fileURLToPath(new URL('./assets/images', import.meta.url)),
     style: fileURLToPath(new URL('./assets/style', import.meta.url)),
