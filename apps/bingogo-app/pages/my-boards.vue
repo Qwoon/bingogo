@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { boardHttp } from '~/api';
+
 interface Game {
   id: number;
   title: string;
@@ -23,6 +25,10 @@ const games: Game[] = [
     link: '1',
   },
 ];
+
+onBeforeMount(async () => {
+  const t = boardHttp.getBy({ limit: 100, offset: 0, fields: [] });
+});
 
 async function onGameClick(gameId: number): Promise<void> {
   await navigateTo({ path: `board/${gameId}` });

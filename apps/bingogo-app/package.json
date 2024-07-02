@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "build": "nuxt build",
-    "dev": "nuxt dev",
+    "dev": "nuxt dev --dotenv .env.local",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare"
@@ -21,6 +21,7 @@
     "vuetify-nuxt-module": "^0.14.1"
   },
   "dependencies": {
+    "@nuxtjs/axios": "^5.13.6",
     "@pinia/nuxt": "^0.5.1",
     "@vee-validate/nuxt": "^4.13.1",
     "@vee-validate/yup": "^4.13.1",

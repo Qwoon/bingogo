@@ -1,5 +1,5 @@
 import type { BoardTile } from './board-tile';
-import type { Historical, Resource } from './core';
+import { Resource, type Historical } from './core';
 
 export declare namespace Board {
   export interface Props extends Resource.Props, Historical.Props {
@@ -14,5 +14,9 @@ export declare namespace Board {
 }
 
 export interface Board extends Readonly<Board.Props> {
+  // empty
+}
+
+export class Board extends Resource<Board.Props> {
   // empty
 }

@@ -1,4 +1,4 @@
-import type { Resource } from './core';
+import { Resource } from './core';
 
 export declare namespace BoardTile {
   export interface Props extends Resource.Props {
@@ -10,5 +10,9 @@ export declare namespace BoardTile {
 }
 
 export interface BoardTile extends Readonly<BoardTile.Props> {
+  // empty
+}
+
+export class BoardTile extends Resource<BoardTile.Props> {
   // empty
 }

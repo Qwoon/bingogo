@@ -3,9 +3,9 @@ import { fileURLToPath } from 'url';
 export default defineNuxtConfig({
   devtools: { enabled: true },
 
-  typescript: {
-    tsConfig: {
-      strictNu,
+  runtimeConfig: {
+    public: {
+      apiBase: process.env.NUXT_API_ROUTE,
     },
   },
 
