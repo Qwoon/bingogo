@@ -25,8 +25,9 @@ const games: Game[] = [
 ];
 
 onBeforeMount(async () => {
-  await useBoardStore().getList();
-  // console.log(useRuntimeConfig().public);
+  const t = await useBoardStore().getList();
+
+  console.log(t);
 });
 
 async function onGameClick(gameId: number): Promise<void> {

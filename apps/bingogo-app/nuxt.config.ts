@@ -9,6 +9,10 @@ export default defineNuxtConfig({
     },
   },
 
+  typescript: {
+    strict: false,
+  },
+
   alias: {
     images: fileURLToPath(new URL('./assets/images', import.meta.url)),
     style: fileURLToPath(new URL('./assets/style', import.meta.url)),
