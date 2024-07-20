@@ -25,6 +25,8 @@ public static class ServiceCollectionExtensions
             .AddRoleManager<RoleManager<IdentityRole<long>>>()
             .AddEntityFrameworkStores<BingogoContext>();
 
+        UpdateDatabase(services);
+
         return services;
     }
 

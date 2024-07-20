@@ -58,6 +58,19 @@ namespace Bingogo.WebApi
 
             builder.Services.AddHttpContextAccessor();
 
+            // CORS
+            builder.Services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(builder =>
+                {
+                    builder
+                        .AllowAnyMethod()
+                        .AllowCredentials()
+                        .AllowAnyHeader()
+                        .SetIsOriginAllowed(_ => true);
+                });
+            });
+
             builder.Services.AddAppServices();
             builder.Services.AddAppDb();
 

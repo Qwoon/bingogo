@@ -35,15 +35,15 @@ public class BoardController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<IEnumerable<BoardModel>> Get([FromQuery] BoardQuery query, [FromBody] ListQuery listQuery)
+    public async Task<IEnumerable<BoardModel>> Get([FromQuery] BoardQuery query, [FromQuery] ListQuery listQuery)
     {
-        var entiies = await _service
+        var entities = await _service
             .Search()
             .Where(query)
             .Where(listQuery)
             .ToListAsync();
 
-        return _mapper.Map<IEnumerable<BoardModel>>(entiies);
+        return _mapper.Map<IEnumerable<BoardModel>>(entities);
     }
 
     [HttpPost]

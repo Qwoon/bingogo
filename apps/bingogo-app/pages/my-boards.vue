@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { boardHttp } from '~/api';
-
 interface Game {
   id: number;
   title: string;
@@ -27,7 +25,8 @@ const games: Game[] = [
 ];
 
 onBeforeMount(async () => {
-  const t = boardHttp.getBy({ limit: 100, offset: 0, fields: [] });
+  await useBoardStore().getList();
+  // console.log(useRuntimeConfig().public);
 });
 
 async function onGameClick(gameId: number): Promise<void> {

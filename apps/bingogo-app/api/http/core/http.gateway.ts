@@ -10,7 +10,7 @@ export abstract class HttpGateway {
 
   constructor() {
     this.axiosClient = axios.create({
-      baseURL: `${useRuntimeConfig().public.apiBase}api`,
+      baseURL: `${process.env.API_ROUTE}api`,
       headers: {
         'Content-Type': 'application/json',
         // ...authHeader(),

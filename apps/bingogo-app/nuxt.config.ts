@@ -5,7 +5,7 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     public: {
-      apiBase: process.env.NUXT_API_ROUTE,
+      apiBase: process.env.API_ROUTE,
     },
   },
 

@@ -1,5 +1,5 @@
 export const useGameStore = defineStore('GameStore', () => {
-  let currentGameName = ref<string>('Papich Bingo');
+  let currentGameName = ref<string>('Bingogo');
 
   return { currentGameName };
 });
