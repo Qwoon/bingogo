@@ -1,35 +1,47 @@
 <script setup lang="ts">
-import type { Tile } from '~/apps/bingogo-app/api';
+import type { BoardTile } from '~/api';
 
-let tiles = ref<Tile.Props[][]>([
+let tiles = ref<BoardTile.Props[][]>([
   [
     {
       title: 'Нереалистичноооооооo',
       isChecked: false,
+      points: 0,
+      boardId: 1,
     },
     {
       title: 'Казик через 10 мин',
       isChecked: false,
+      points: 0,
+      boardId: 1,
     },
   ],
   [
     {
       title: 'Это баг?',
       isChecked: false,
+      points: 0,
+      boardId: 1,
     },
     {
       title: 'Даун на разрабе',
       isChecked: false,
+      points: 0,
+      boardId: 1,
     },
   ],
   [
     {
       title: 'Кто я? Где я?',
       isChecked: false,
+      points: 0,
+      boardId: 1,
     },
     {
       title: 'Опять гайды',
       isChecked: false,
+      points: 0,
+      boardId: 1,
     },
   ],
 ]);
