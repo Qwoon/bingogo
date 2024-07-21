@@ -1,11 +1,11 @@
 import { array, boolean, object, string, type AnySchema } from 'yup';
-import type { Tile } from '~/apps/bingogo-app/api';
+import type { BoardTile } from '~/api';
 import { reset } from './reset';
 
 export interface BoardForm {
   name: string;
   allowMultiplayer: boolean;
-  tiles: Tile.Props[];
+  tiles: BoardTile.Props[];
 }
 
 export const boardValidationSchema = object<
@@ -15,7 +15,7 @@ export const boardValidationSchema = object<
   allowMultiplayer: boolean().optional(),
   tiles: array()
     .of(
-      object<Tile.Props>().shape({
+      object<BoardTile.Props>().shape({
         title: string().required('Tile title is required'),
       })
     )
