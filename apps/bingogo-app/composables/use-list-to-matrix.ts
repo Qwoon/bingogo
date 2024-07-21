@@ -1,4 +1,4 @@
-export function useListToMatrix(list: any, elementsPerSubArray: number) {
+export function useListToMatrix<T>(list: T[], elementsPerSubArray: number) {
   let matrix = [],
     i: number,
     k: number;

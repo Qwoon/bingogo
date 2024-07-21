@@ -6,6 +6,7 @@ export declare namespace BoardTile {
     isChecked: boolean;
     points: number;
     boardId: number;
+    isMock?: boolean;
   }
 }
 
@@ -14,5 +15,12 @@ export interface BoardTile extends Readonly<BoardTile.Props> {
 }
 
 export class BoardTile extends Resource<BoardTile.Props> {
-  // empty
+  static constructEmpty = (): BoardTile =>
+    new BoardTile({
+      title: null,
+      isChecked: true,
+      points: 0,
+      boardId: null,
+      isMock: true,
+    });
 }

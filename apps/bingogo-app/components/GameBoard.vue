@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import type { BoardTile } from '~/api';
+import { BoardTile } from '~/api';
 
 const props = defineProps<{
   tiles: BoardTile.Props[];
 }>();
 
-let tiles = ref<BoardTile.Props[][]>(useListToMatrix(props.tiles, 3));
+let tiles = ref<BoardTile.Props[][]>();
 
 let uncheckedTilesCount = ref<number>();
 
@@ -16,6 +16,12 @@ const isChecked = computed(() => (rowIndex: number, colIndex: number) => {
 const { $anime } = useNuxtApp();
 
 onBeforeMount(() => {
+  let initTiles = props.tiles;
+
+  if (initTiles.length % 3 !== 0) initTiles.push(BoardTile.constructEmpty());
+
+  tiles.value = useListToMatrix(initTiles, 3);
+
   uncheckedTilesCount.value = tiles.value
     .flatMap((x) => x)
     .map((x) => x.isChecked)
@@ -71,8 +77,10 @@ function endGame(): void {
   // reset
   for (let i in tiles.value)
     for (let k in tiles.value[i]) {
-      tiles.value[i][k].isChecked = false;
-      flipCard(`${i}-${k}`);
+      if (!tiles.value[i][k].isMock) {
+        tiles.value[i][k].isChecked = false;
+        flipCard(`${i}-${k}`);
+      }
     }
 
   // Flip cards back
@@ -84,6 +92,7 @@ function endGame(): void {
     <VRow v-for="(row, rowIndex) in tiles">
       <VCol v-for="(col, colIndex) in row">
         <GameBoardTile
+          v-if="!col.isMock"
           :title="col.title"
           :row-index="rowIndex"
           :col-index="colIndex"
@@ -92,6 +101,20 @@ function endGame(): void {
             onTileCheck(`${rowIndex}-${colIndex}`, rowIndex, colIndex)
           "
         />
+        <VCard
+          v-else
+          :elevation="6"
+          width="150"
+          height="150"
+          class="card-back position-absolute d-flex justify-center align-center cursor-pointer position-relative"
+          :class="isChecked ? 'bg-primary' : 'bg-secondary'"
+        >
+          <Icon
+            name="ic:round-check-circle"
+            size="64"
+            class="position-absolute mx-auto right-0 left-0 opacity-50"
+          />
+        </VCard>
       </VCol>
     </VRow>
   </div>
