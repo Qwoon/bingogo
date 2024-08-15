@@ -3,7 +3,7 @@ const boardStore = useBoardStore();
 const { resource } = storeToRefs(boardStore);
 
 onBeforeMount(async () => {
-  await boardStore.get(1, {});
+  await boardStore.get(1);
 });
 </script>
 <template>

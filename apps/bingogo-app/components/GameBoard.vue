@@ -18,9 +18,11 @@ const { $anime } = useNuxtApp();
 onBeforeMount(() => {
   let initTiles = props.tiles;
 
-  if (initTiles.length % 3 !== 0) initTiles.push(BoardTile.constructEmpty());
+  if (initTiles.length % 6 !== 0)
+    while (initTiles.length % 6 !== 0)
+      initTiles.push(BoardTile.constructEmpty());
 
-  tiles.value = useListToMatrix(initTiles, 3);
+  tiles.value = useListToMatrix(initTiles, 6);
 
   uncheckedTilesCount.value = tiles.value
     .flatMap((x) => x)
@@ -88,7 +90,7 @@ function endGame(): void {
 </script>
 
 <template>
-  <div class="grid">
+  <VContainer>
     <VRow v-for="(row, rowIndex) in tiles">
       <VCol v-for="(col, colIndex) in row">
         <GameBoardTile
@@ -106,7 +108,7 @@ function endGame(): void {
           :elevation="6"
           width="150"
           height="150"
-          class="card-back position-absolute d-flex justify-center align-center cursor-pointer position-relative"
+          class="card-back position-relative d-flex justify-center align-center cursor-pointer position-relative"
           :class="isChecked ? 'bg-primary' : 'bg-secondary'"
         >
           <Icon
@@ -117,5 +119,5 @@ function endGame(): void {
         </VCard>
       </VCol>
     </VRow>
-  </div>
+  </VContainer>
 </template>

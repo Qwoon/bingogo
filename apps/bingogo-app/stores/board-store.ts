@@ -7,7 +7,7 @@ export const useBoardStore = defineStore('BoardStore', () => {
 
   async function get(
     id: number,
-    query: Partial<ResourceQuery.Props>
+    query?: Partial<ResourceQuery.Props>
   ): Promise<Board> {
     const { data } = await useFetch(
       `${useRuntimeConfig().public.apiBase}/boards/${id}`,

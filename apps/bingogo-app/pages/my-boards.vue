@@ -26,7 +26,7 @@ async function onGameClick(gameId: number): Promise<void> {
             >
               <VCardSubtitle
                 >{{ board.createdAt }}, by
-                {{ board.createdById }}</VCardSubtitle
+                {{ board.createdById ?? 'Anonymous' }}</VCardSubtitle
               >
             </VCard>
           </template>
