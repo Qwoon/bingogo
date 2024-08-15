@@ -5,7 +5,10 @@ export default defineNuxtConfig({
 
   runtimeConfig: {
     public: {
-      apiBase: process.env.API_ROUTE,
+      apiBase:
+        process.env.NODE_ENV == 'development'
+          ? 'https://localhost:7001/api'
+          : 'https://api.bingogo.com/api',
     },
   },
 
