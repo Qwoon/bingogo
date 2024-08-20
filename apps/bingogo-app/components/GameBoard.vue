@@ -91,8 +91,8 @@ function endGame(): void {
 
 <template>
   <VContainer>
-    <VRow v-for="(row, rowIndex) in tiles">
-      <VCol v-for="(col, colIndex) in row">
+    <VRow v-for="(row, rowIndex) in tiles" class="justify-center">
+      <VCol v-for="(col, colIndex) in row" :style="{ 'flex-grow': 0 }">
         <GameBoardTile
           v-if="!col.isMock"
           :title="col.title"
