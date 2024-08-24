@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { BoardTile } from '~/api';
+import { BoardTile } from '~/domain';
 
 const props = defineProps<{
   tiles: BoardTile.Props[];

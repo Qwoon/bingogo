@@ -1,4 +1,4 @@
-import { Board, construct, type ResourceQuery } from '~/api';
+import { Board, construct, type ResourceQuery } from '~/domain';
 import type { BoardForm } from '~/forms';
 
 export const useBoardStore = defineStore('BoardStore', () => {

@@ -1,4 +1,4 @@
-import type { BoardTile } from './_board-tile';
+import type { BoardTile } from './board-tile';
 import { Resource, type Historical } from './core';
 
 export declare namespace Board {
