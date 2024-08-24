@@ -1,5 +1,5 @@
 export * from './core';
 export * from './queries';
 
-export * from './board';
-export * from './board-tile';
+export * from './_board';
+export * from './_board-tile';

@@ -1,2 +1,2 @@
-export * from './list-query'
-export * from './resource-query'
+export * from './_list-query';
+export * from './_resource-query';

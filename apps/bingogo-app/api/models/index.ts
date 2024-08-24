@@ -1,1 +1,1 @@
-export * from './jwt-access-token';
+export * from './_jwt-access-token';

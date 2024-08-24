@@ -1,3 +1,3 @@
-export * from './clear'
-export * from './copy'
-export * from './shallow'
+export * from './_clear';
+export * from './_copy';
+export * from './_shallow';
