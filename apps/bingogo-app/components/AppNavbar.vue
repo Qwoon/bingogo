@@ -16,11 +16,8 @@ const navItems = [
     to: { name: 'my-boards' },
   },
 ];
-let showDrawer = ref<boolean>(false);
 
-onBeforeMount(() => {
-  showDrawer.value = false;
-});
+let showDrawer = ref<boolean>(false);
 </script>
 
 <template>
@@ -48,8 +45,8 @@ onBeforeMount(() => {
   </VAppBar>
 
   <VNavigationDrawer
+    temporary
     v-model="showDrawer"
-    class="bg-transparent"
     :location="$vuetify.display.mobile ? 'bottom' : undefined"
   >
     <VList lines="one">

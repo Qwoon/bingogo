@@ -3,6 +3,19 @@ import { fileURLToPath } from 'url';
 export default defineNuxtConfig({
   devtools: { enabled: true },
 
+  runtimeConfig: {
+    public: {
+      apiBase:
+        process.env.NODE_ENV == 'development'
+          ? 'https://localhost:7001/api'
+          : 'https://api.bingogo.com/api',
+    },
+  },
+
+  typescript: {
+    strict: false,
+  },
+
   alias: {
     images: fileURLToPath(new URL('./assets/images', import.meta.url)),
     style: fileURLToPath(new URL('./assets/style', import.meta.url)),

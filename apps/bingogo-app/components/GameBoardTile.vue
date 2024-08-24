@@ -56,43 +56,45 @@ function flipCard(elementId: string) {
 <template>
   <VHover>
     <template v-slot:default="{ isHovering, props }">
-      <div class="position-relative" style="backface-visibility: hidden">
-        <VCard
-          v-bind="props"
-          :elevation="isHovering ? 16 : 6"
-          width="150"
-          height="150"
-          class="card-back position-absolute d-flex justify-center align-center cursor-pointer position-relative"
-          style="backface-visibility: hidden"
-          :id="`b-${rowIndex}-${colIndex}`"
-          @click="onTileCheck(`${rowIndex}-${colIndex}`, rowIndex, colIndex)"
-          :class="isChecked ? 'bg-primary' : 'bg-secondary'"
-        >
-          <Icon
-            name="ic:round-check-circle"
-            size="64"
-            class="position-absolute mx-auto right-0 left-0 opacity-50"
-          />
-          <VCardTitle class="tile-text d-flex flew-wrap text-wrap">
-            {{ title }}
-          </VCardTitle>
-        </VCard>
-        <VCard
-          v-bind="props"
-          :elevation="isHovering ? 15 : 6"
-          width="150"
-          height="150"
-          class="d-flex position-relative justify-center align-center cursor-pointer relative"
-          style="backface-visibility: hidden"
-          :id="`f-${rowIndex}-${colIndex}`"
-          @click="onTileCheck(`${rowIndex}-${colIndex}`, rowIndex, colIndex)"
-          :class="isChecked ? 'bg-primary' : 'bg-secondary'"
-        >
-          <VCardTitle class="tile-text d-flex flew-wrap text-wrap">
-            {{ title }}
-          </VCardTitle>
-        </VCard>
-      </div>
+      <slot>
+        <div class="position-relative" style="backface-visibility: hidden">
+          <VCard
+            v-bind="props"
+            :elevation="isHovering ? 16 : 6"
+            width="150"
+            height="150"
+            class="card-back position-absolute d-flex justify-center align-center cursor-pointer position-relative"
+            style="backface-visibility: hidden"
+            :id="`b-${rowIndex}-${colIndex}`"
+            @click="onTileCheck(`${rowIndex}-${colIndex}`, rowIndex, colIndex)"
+            :class="isChecked ? 'bg-primary' : 'bg-secondary'"
+          >
+            <Icon
+              name="ic:round-check-circle"
+              size="64"
+              class="position-absolute mx-auto right-0 left-0 opacity-50"
+            />
+            <VCardTitle class="tile-text d-flex flew-wrap text-wrap">
+              {{ title }}
+            </VCardTitle>
+          </VCard>
+          <VCard
+            v-bind="props"
+            :elevation="isHovering ? 15 : 6"
+            width="150"
+            height="150"
+            class="d-flex position-relative justify-center align-center cursor-pointer relative"
+            style="backface-visibility: hidden"
+            :id="`f-${rowIndex}-${colIndex}`"
+            @click="onTileCheck(`${rowIndex}-${colIndex}`, rowIndex, colIndex)"
+            :class="isChecked ? 'bg-primary' : 'bg-secondary'"
+          >
+            <VCardTitle class="tile-text d-flex flew-wrap text-wrap">
+              {{ title }}
+            </VCardTitle>
+          </VCard>
+        </div>
+      </slot>
     </template>
   </VHover>
 </template>

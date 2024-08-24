@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Tile } from '~/apps/bingogo-app/api';
+import type { BoardTile } from '~/api';
 import { boardValidationSchema } from '~/forms';
 
 const { handleSubmit, errors, meta } = useForm({
@@ -8,7 +8,7 @@ const { handleSubmit, errors, meta } = useForm({
 
 let { value: name } = useField<string>('name');
 let { value: allowMultiplayer } = useField<boolean>('allowMultiplayer');
-let { remove, push, fields } = useFieldArray<Tile.Props>('tiles');
+let { remove, push, fields } = useFieldArray<BoardTile.Props>('tiles');
 
 onBeforeRouteLeave((to, from, next) => {
   if (meta.value.dirty) {
@@ -24,7 +24,12 @@ onBeforeRouteLeave((to, from, next) => {
 });
 
 function onTileCreateClick(): void {
-  push({ title: '', isChecked: false });
+  push({
+    title: '',
+    isChecked: false,
+    points: 0,
+    boardId: 0,
+  });
 }
 </script>
 
