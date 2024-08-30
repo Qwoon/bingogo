@@ -62,3 +62,10 @@ jobs:
             >> deploy.txt
 
           echo "url=$(cat deploy.txt)" >> $GITHUB_OUTPUT
+
+      - name: 'Promote'
+        if: ${{ vars.VERCEL_ENV == 'production' }}
+        working-directory: ${{ inputs.dir }}
+        run: vercel promote ${{ steps.deploy.outputs.url }}
+          --scope=${{ vars.VERCEL_TEAM_NAME }}
+          --token=${{ secrets.VERCEL_TOKEN }}
