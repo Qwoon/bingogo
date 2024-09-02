@@ -11,7 +11,7 @@ on:
 
 env:
   REGISTRY: 'ghcr.io'
-  REPOSITORY: 'Qwoon'
+  REPOSITORY: 'qwoon'
 
 jobs:
   build:
@@ -30,6 +30,7 @@ jobs:
 
       - name: 'Environment Variables'
         run: |
+          ./scripts/conf.sh
           GHCR_TOKEN=$(echo ${{ secrets.GITHUB_TOKEN }} | base64)
           echo "::add-mask::$GHCR_TOKEN"
           echo "GHCR_TOKEN=$GHCR_TOKEN" >> "$GITHUB_ENV"
