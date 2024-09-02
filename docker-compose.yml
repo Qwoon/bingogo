@@ -1,0 +1,23 @@
+services:
+  #API Service
+  api:
+    iamge: bing-api:latest
+    container_name: bing-api
+    tty: true
+    ports:
+      - '7000:7000'
+      - '7001:7001'
+    build:
+      context: .
+      target: runtime
+      dockerfile: ./src/Bingogo.WebApi/Dockerfile
+      args:
+        CONFIGURATION: Debug
+    environment:
+      ASPNETCORE_ENVIRONMENT: Local
+      ASPNETCORE_URLS: http://+:7000;https://+:7001
+      ASPNETCORE_Kestrel__Certificates__Default__Path: /https/dev.pfx
+      ASPNETCORE_Kestrel__Certificates__Default__Password: development
+      CUSTOMCONNSTR_MySql: server=host.docker.internal;port=3306;uid=root;password=root;database=omsl-api-dev
+    volumes:
+      - ./https:/https:ro
