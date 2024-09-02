@@ -21,7 +21,7 @@ permissions:
 jobs:
   build:
     name: 'Build'
-    uses: './.github/worklfows/_docker-build.yaml'
+    uses: './.github/workflows/_docker-build.yaml'
     secrets: inherit
     with:
       name: 'api'
