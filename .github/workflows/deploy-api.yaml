@@ -1,0 +1,28 @@
+name: 'Deploy: API'
+on:
+  workflow_call:
+    inputs:
+      environments:
+        type: string
+        default: 'Development'
+        description: 'Environment'
+
+  workflow_dispatch:
+    inputs:
+      environments:
+        type: environment
+        default: 'Experimental'
+        description: 'Environment'
+
+permissions:
+  contents: write
+  packages: write
+
+jobs:
+  build:
+    name: 'Build'
+    uses: './.github/worklfows/_docker-build.yaml'
+    secrets: inherit
+    with:
+      name: 'api'
+      file: 'src/Bingogo.WebApi/Dockerfile'
