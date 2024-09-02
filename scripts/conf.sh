@@ -28,6 +28,6 @@ define() {
 }
 
 define DOMAIN "bingogo.xyz"
-define PROJECT "omsl"
+define PROJECT "bing"
 define REVISION "latest"
 define BUILD "$(date +%y%m%d-%H%M)"
