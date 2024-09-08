@@ -1,4 +1,4 @@
-import { fileURLToPath } from 'url';
+import { fileURLToPath } from 'url'
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: true },
@@ -8,26 +8,26 @@ export default defineNuxtConfig({
       apiBase:
         process.env.NODE_ENV == 'development'
           ? 'https://localhost:7001/api'
-          : 'https://api.bingogo.com/api',
-    },
+          : 'https://api.bingogo.xyz/api'
+    }
   },
 
   typescript: {
-    strict: false,
+    strict: false
   },
 
   alias: {
     images: fileURLToPath(new URL('./assets/images', import.meta.url)),
-    style: fileURLToPath(new URL('./assets/style', import.meta.url)),
+    style: fileURLToPath(new URL('./assets/style', import.meta.url))
   },
 
   routeRules: {
-    '/': { prerender: true },
+    '/': { prerender: true }
   },
 
   vuetify: {
     moduleOptions: {},
-    vuetifyOptions: './vuetify.config.ts',
+    vuetifyOptions: './vuetify.config.ts'
   },
 
   modules: [
@@ -38,6 +38,6 @@ export default defineNuxtConfig({
     '@hypernym/nuxt-anime',
     'nuxt-icon',
     '@pinia/nuxt',
-    '@vee-validate/nuxt',
-  ],
-});
+    '@vee-validate/nuxt'
+  ]
+})
