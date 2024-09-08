@@ -90,7 +90,7 @@ namespace Bingogo.WebApi
             app.MapControllers();
 
             // Middleware
-            app.UseHttpsRedirection();
+            // app.UseHttpsRedirection();
             app.UseHealthChecks("/");
             app.UseAuthentication();
             app.UseAuthorization();

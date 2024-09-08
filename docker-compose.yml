@@ -1,7 +1,7 @@
 services:
   #API Service
   api:
-    iamge: bing-api:latest
+    image: bing-api:latest
     container_name: bing-api
     tty: true
     ports:
