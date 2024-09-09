@@ -3,6 +3,7 @@ using Bingogo.Core.Exceptions;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Diagnostics;
 
@@ -39,6 +40,8 @@ public class ExceptionHandler
     {
         EntityNotFoundException => Problems.NotFound(),
         UnauthorizedAccessException => Problems.Unauthorized(),
+        ApplicationException e => Problems.BadRequest(e.Message),
+        DbUpdateException e => Problems.BadRequest(e.InnerException.Message),
         _ => Unhandled(error),
     };
 

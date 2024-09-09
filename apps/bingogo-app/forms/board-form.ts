@@ -1,37 +1,35 @@
-import { array, boolean, object, string, type AnySchema } from 'yup';
-import type { BoardTile } from '~/api';
-import { reset } from './reset';
+import { array, boolean, object, string, type AnySchema } from 'yup'
+import type { BoardTile } from '~/domain'
+import { reset } from './reset'
 
 export interface BoardForm {
-  name: string;
-  allowMultiplayer: boolean;
-  tiles: BoardTile.Props[];
+  title: string
+  allowMultiplayer: boolean
+  tiles: BoardTile.Props[]
 }
 
-export const boardValidationSchema = object<
-  Partial<Record<keyof BoardForm, AnySchema>>
->({
-  name: string().required('Board name is required'),
+export const boardValidationSchema = object<Partial<Record<keyof BoardForm, AnySchema>>>({
+  title: string().required('Board title is required'),
   allowMultiplayer: boolean().optional(),
   tiles: array()
     .of(
       object<BoardTile.Props>().shape({
-        title: string().required('Tile title is required'),
+        title: string().required('Tile title is required')
       })
     )
-    .min(1),
-});
+    .min(1)
+})
 
 export namespace BoardForm {
   export function create(props?: Partial<BoardForm>): BoardForm {
     const form: BoardForm = {
-      name: '',
+      title: '',
       tiles: [],
-      allowMultiplayer: false,
-    };
+      allowMultiplayer: false
+    }
 
-    reset(form, props);
+    reset(form, props)
 
-    return form;
+    return form
   }
 }

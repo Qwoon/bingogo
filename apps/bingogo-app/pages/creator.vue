@@ -1,53 +1,54 @@
 <script setup lang="ts">
-import type { BoardTile } from '~/api';
-import { boardValidationSchema } from '~/forms';
+import type { BoardTile } from '~/domain'
+import { BoardForm, boardValidationSchema } from '~/forms'
 
-const { handleSubmit, errors, meta } = useForm({
-  validationSchema: boardValidationSchema,
-});
+const store = useBoardStore()
 
-let { value: name } = useField<string>('name');
-let { value: allowMultiplayer } = useField<boolean>('allowMultiplayer');
-let { remove, push, fields } = useFieldArray<BoardTile.Props>('tiles');
+const { handleSubmit, errors, meta, resetForm } = useForm({
+  validationSchema: boardValidationSchema
+})
+const isDirty = useIsFormDirty()
+let { value: title } = useField<string>('title')
+let { value: allowMultiplayer } = useField<boolean>('allowMultiplayer')
+let { remove, push, fields } = useFieldArray<BoardTile.Props>('tiles')
 
 onBeforeRouteLeave((to, from, next) => {
-  if (meta.value.dirty) {
-    const answer = window.confirm(
-      'Unsaved progress may be lost. Are you sure you want to leave?'
-    );
+  if (isDirty.value) {
+    const answer = window.confirm('Unsaved progress may be lost. Are you sure you want to leave?')
 
-    if (answer) next();
-    else next(false);
+    if (answer) next()
+    else next(false)
   } else {
-    next();
+    next()
   }
-});
+})
+
+const submit = handleSubmit(async (values: BoardForm) => {
+  await store.create([values])
+
+  while (fields.value.length !== 0) remove(0)
+
+  resetForm({})
+  useNotificationStore().setMessage('Board created')
+})
 
 function onTileCreateClick(): void {
   push({
     title: '',
     isChecked: false,
     points: 0,
-    boardId: 0,
-  });
+    boardId: 0
+  })
 }
 </script>
 
 <template>
   <VContainer>
-    <VCard
-      title="Board creator"
-      subtitle="Create your own unique bingo board"
-      class="bg-grey-50"
-    >
+    <VCard title="Board creator" subtitle="Create your own unique bingo board" class="bg-grey-50">
       <VCardText>
         <VRow>
           <VCol cols="6">
-            <VTextField
-              label="Name"
-              v-model="name"
-              :error-messages="errors.name"
-            ></VTextField>
+            <VTextField label="Title" v-model="title" :error-messages="errors.title"></VTextField>
           </VCol>
           <VCol cols="6">
             <VCheckbox
@@ -66,10 +67,22 @@ function onTileCreateClick(): void {
             >
             </VTextField>
           </VCol>
-          <VCol>
-            <VBtn color="secondary" block @click="onTileCreateClick"
+          <VCol cols="12">
+            <VBtn
+              color="secondary"
+              class="border-dashed"
+              variant="outlined"
+              block
+              @click="onTileCreateClick"
               >Add tile</VBtn
             >
+          </VCol>
+        </VRow>
+      </VCardText>
+      <VCardText>
+        <VRow>
+          <VCol class="text-end">
+            <VBtn @click="submit">Create</VBtn>
           </VCol>
         </VRow>
       </VCardText>

@@ -1,12 +1,12 @@
-import { Resource } from './core';
+import { Resource } from './core'
 
 export declare namespace BoardTile {
   export interface Props extends Resource.Props {
-    title: string;
-    isChecked: boolean;
-    points: number;
-    boardId: number;
-    isMock?: boolean;
+    title: string
+    isChecked: boolean
+    points: number
+    boardId: number
+    isMock?: boolean
   }
 }
 
@@ -21,6 +21,6 @@ export class BoardTile extends Resource<BoardTile.Props> {
       isChecked: true,
       points: 0,
       boardId: null,
-      isMock: true,
-    });
+      isMock: true
+    })
 }
