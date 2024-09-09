@@ -1,6 +1,8 @@
 import { Board, construct, type ResourceQuery } from '~/domain'
 import type { BoardForm } from '~/forms'
 
+export const BOARD_COMPONENT_LOADER_KEY = 'BOARD_COMPONENT_LOADER_KEY'
+
 export const useBoardStore = defineStore('BoardStore', () => {
   let resource = ref<Board | null>()
   let resources = ref<Board[] | null>()
