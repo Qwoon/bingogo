@@ -1,23 +1,23 @@
 <script setup lang="ts">
-const store = useGameStore();
-const { currentGameName } = storeToRefs(store);
+const store = useGameStore()
+const { currentGameName } = storeToRefs(store)
 
 const navItems = [
   {
     title: 'Home',
-    to: { name: 'index' },
+    to: { name: 'index' }
   },
   {
     title: 'Create board',
-    to: { name: 'creator' },
+    to: { name: 'creator' }
   },
   {
     title: 'My boards',
-    to: { name: 'my-boards' },
-  },
-];
+    to: { name: 'my-boards' }
+  }
+]
 
-let showDrawer = ref<boolean>(false);
+let showDrawer = ref<boolean>(false)
 </script>
 
 <template>
@@ -27,14 +27,14 @@ let showDrawer = ref<boolean>(false);
     </template>
 
     <template #title v-if="$vuetify.display.mdAndUp">
-      {{ currentGameName }}
+      {{ currentGameName ?? 'Bingogo' }}
     </template>
 
     <template #default>
-      <div class="d-flex align-center ga-2">
+      <!-- <div class="d-flex align-center ga-2">
         <span>Connected</span>
         <span class="status-indicator bg-green rounded-circle"></span>
-      </div>
+      </div> -->
 
       <VSpacer />
     </template>

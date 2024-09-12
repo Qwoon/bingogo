@@ -1,37 +1,23 @@
 <script setup lang="ts">
-const store = useBoardStore();
-const { resources } = storeToRefs(store);
+const store = useBoardStore()
+const { resources } = storeToRefs(store)
 
-onBeforeMount(async () => {
-  await store.getList();
-});
-
-async function onGameClick(gameId: number): Promise<void> {
-  await navigateTo({ path: `board/${gameId}` });
-}
+onBeforeMount(() => {
+  useLoaderStore().loadAndAwait(BOARDS_COMPONENT_LOADER_KEY, async () => {
+    await store.getList()
+  })
+})
 </script>
 
 <template>
   <VContainer class="h-screen">
     <VRow>
-      <VCol cols="12" md="12" v-for="board in resources">
-        <VHover>
-          <template #default="{ isHovering, props }">
-            <VCard
-              :title="board.title"
-              class="pa-5 cursor-pointer"
-              v-bind="props"
-              :elevation="isHovering ? 16 : 6"
-              @click="onGameClick(board.id)"
-            >
-              <VCardSubtitle
-                >{{ board.createdAt }}, by
-                {{ board.createdById ?? 'Anonymous' }}</VCardSubtitle
-              >
-            </VCard>
-          </template>
-        </VHover>
-      </VCol>
+      <BaseLoader :component-name="BOARDS_COMPONENT_LOADER_KEY">
+        <template #loader> loading... </template>
+        <VCol cols="12" md="12" v-for="board in resources" :key="board.id">
+          <GameBoardCard :board="board"></GameBoardCard>
+        </VCol>
+      </BaseLoader>
     </VRow>
   </VContainer>
 </template>

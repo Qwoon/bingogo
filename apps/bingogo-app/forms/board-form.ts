@@ -1,11 +1,9 @@
 import { array, boolean, object, string, type AnySchema } from 'yup'
-import type { BoardTile } from '~/domain'
+import type { Board, BoardTile } from '~/domain'
 import { reset } from './reset'
 
-export interface BoardForm {
-  title: string
+export interface BoardForm extends Board.Props {
   allowMultiplayer: boolean
-  tiles: BoardTile.Props[]
 }
 
 export const boardValidationSchema = object<Partial<Record<keyof BoardForm, AnySchema>>>({
@@ -25,7 +23,18 @@ export namespace BoardForm {
     const form: BoardForm = {
       title: '',
       tiles: [],
-      allowMultiplayer: false
+      allowMultiplayer: false,
+      isPublic: false,
+      hasEvents: false,
+      gameMode: 0,
+      gameType: 0,
+      category: '',
+      createdById: 0,
+      updatedById: 0,
+      deletedById: 0,
+      createdAt: undefined,
+      updatedAt: undefined,
+      deletedAt: undefined
     }
 
     reset(form, props)
