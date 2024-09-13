@@ -9,19 +9,6 @@ export const useNotificationStore = defineStore('NotificationStore', () => {
 
   const hasNotification = computed(() => !!text.value)
 
-  const snackbarColorResolver = computed(() => (type: NotificationType | null) => {
-    switch (type) {
-      case 'error':
-        return 'error'
-      case 'info':
-        return 'primary'
-      case 'warning':
-        return 'warning'
-      default:
-        return 'info'
-    }
-  })
-
   const setMessage = (
     value: string,
     type: NotificationType = 'info',
@@ -39,5 +26,5 @@ export const useNotificationStore = defineStore('NotificationStore', () => {
     notificationType.value = null
   }
 
-  return { text, hasNotification, notificationType, snackbarColorResolver, setMessage, $reset }
+  return { text, hasNotification, notificationType, setMessage, $reset }
 })
