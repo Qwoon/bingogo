@@ -36,7 +36,7 @@ async function onEditClick(gameId: number): Promise<void> {
       >
         <template #append>
           <div>
-            <VMenu v-model="menu">
+            <VMenu min-width="100px" v-model="menu">
               <template v-slot:activator="{ props: activatorProps }">
                 <VBtn icon color="default" variant="text" v-bind="activatorProps">
                   <VIcon size="24" icon="mdi-dots-vertical" />
@@ -45,7 +45,7 @@ async function onEditClick(gameId: number): Promise<void> {
               <template #default="{ isActive }">
                 <VList>
                   <VListItem link @click="onEditClick(board.id)">
-                    <VListItemTitle> Edit </VListItemTitle>
+                    <VListItemTitle> Edit Board </VListItemTitle>
                   </VListItem>
                 </VList>
               </template>

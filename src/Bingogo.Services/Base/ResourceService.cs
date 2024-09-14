@@ -89,7 +89,7 @@ public abstract class ResourceService<T, TKey> : ResourceService<T>
     {
         KeyName = key ?? GetPrimaryKeyName(context);
 
-        var field = typeof(T).GetField(KeyName, BindingFlags.Instance | BindingFlags.Public);
+        var field = typeof(T).GetProperty(KeyName, BindingFlags.Instance | BindingFlags.Public);
         keyOf = instance => (TKey)field.GetValue(instance);
     }
 

@@ -2,7 +2,12 @@
 import type { Board, BoardTile } from '~/domain'
 import { BoardForm, boardValidationSchema } from '~/forms'
 
+export type Mode = 'update' | 'create'
+
 interface Props {
+  cardTitle?: string
+  cardSubtitle?: string
+  mode: Mode
   board?: Board.Props
   resetOnSubmit: boolean
 }
@@ -33,8 +38,6 @@ const submit = handleSubmit(async (form: BoardForm) => {
     while (fields.value.length !== 0) remove(0)
     resetForm({})
   }
-
-  useNotificationStore().setMessage('Board created')
 })
 
 onBeforeRouteLeave((to, from, next) => {
@@ -53,13 +56,13 @@ function onTileCreateClick(): void {
     title: '',
     isChecked: false,
     points: 0,
-    boardId: 0
+    boardId: props.board.id ?? 0
   })
 }
 </script>
 
 <template>
-  <VCard title="Board creator" subtitle="Create your own unique bingo board" class="bg-grey-50">
+  <VCard :title="cardTitle" :subtitle="cardSubtitle" class="bg-grey-50">
     <VCardText>
       <VRow>
         <VCol cols="6">

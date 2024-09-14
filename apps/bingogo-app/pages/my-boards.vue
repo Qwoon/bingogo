@@ -13,8 +13,8 @@ onBeforeMount(() => {
   <VContainer class="h-screen">
     <VRow>
       <BaseLoader :component-name="BOARDS_COMPONENT_LOADER_KEY">
-        <template #loader> loading... </template>
-        <VCol cols="12" md="12" v-for="board in resources" :key="board.id">
+        <template #loader> Loading... </template>
+        <VCol cols="12" sm="12" md="6" v-for="board in resources" :key="board.id">
           <GameBoardCard :board="board"></GameBoardCard>
         </VCol>
       </BaseLoader>
