@@ -1,4 +1,5 @@
-﻿using Bingogo.Models;
+﻿using Bingogo.Data.Entities;
+using Bingogo.Models;
 using Bingogo.Services.Extensions;
 using Bingogo.Services.Interfaces;
 
@@ -15,6 +16,15 @@ public class BoardTileController : ControllerBase
     {
         _mapper = mapper;
         _service = service;
+    }
+
+    [HttpPost]
+    public async Task<IEnumerable<BoardTileModel>> Create([FromBody] IEnumerable<BoardTileForm> forms)
+    {
+        var entities = await _service
+            .InsertRangeAsync(_mapper.Map<IEnumerable<BoardTile>>(forms));
+
+        return _mapper.Map<IEnumerable<BoardTileModel>>(entities);
     }
 
     [HttpPut]
