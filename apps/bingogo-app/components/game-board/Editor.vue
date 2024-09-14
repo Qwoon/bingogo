@@ -56,7 +56,7 @@ function onTileCreateClick(): void {
     title: '',
     isChecked: false,
     points: 0,
-    boardId: props.board.id ?? 0
+    boardId: props.board?.id ?? 0
   })
 }
 </script>
