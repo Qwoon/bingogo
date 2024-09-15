@@ -12,15 +12,20 @@ const boardTileStore = useBoardTileStore()
 
 const boardLocal = ref()
 
+onBeforeMount(async () => {
+  if (route.params.id) await loadBoard()
+})
+
 async function handleSubmit(form: BoardForm): Promise<void> {
   // Update board
   await boardStore.update(form.id, form)
 
-  // Update Board -> Tiles
-  const nonPersistantTiles = form.tiles.filter((x) => !x.id)
-  if (nonPersistantTiles.length > 0) await boardTileStore.create(nonPersistantTiles)
-
   // Create new Board -> Tiles
+  const nonPersistantTiles = form.tiles.filter((x) => !x.id)
+  if (nonPersistantTiles.length > 0) {
+    await boardTileStore.create(nonPersistantTiles)
+  }
+  // Update Board -> Tiles
   const props = Object.fromEntries(form.tiles.filter((t) => t.id).map((t) => [t.id, { ...t }]))
   await boardTileStore.update(props)
 
@@ -35,24 +40,22 @@ async function handleSubmit(form: BoardForm): Promise<void> {
 
   for (const prop of propsToDelete) await boardTileStore.remove(prop.id)
 
+  await loadBoard()
+
   notificationStore.setMessage('Changes saved.')
 }
 
-onBeforeMount(async () => {
-  if (route.params.id)
-    useLoaderStore().loadAndAwait(BOARD_COMPONENT_LOADER_KEY, async () => {
-      await boardStore.get(parseInt(route.params.id as string))
-      boardLocal.value = resource.value
-    })
-})
+async function loadBoard(): Promise<void> {
+  useLoaderStore().loadAndAwait(BOARD_COMPONENT_LOADER_KEY, async () => {
+    await boardStore.get(parseInt(route.params.id as string))
+    boardLocal.value = resource.value
+  })
+}
 </script>
 
 <template>
-  <VContainer>
+  <VContainer class="h-100">
     <BaseLoader :component-name="BOARD_COMPONENT_LOADER_KEY">
-      <template #loader>
-        <VSkeletonLoader type="card" />
-      </template>
       <GameBoardEditor
         cardTitle="Board editor"
         :board="boardLocal"

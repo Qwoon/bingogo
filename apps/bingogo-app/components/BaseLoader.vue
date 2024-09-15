@@ -9,7 +9,9 @@ const store = useLoaderStore()
 <template>
   <ClientOnly>
     <slot name="loader" v-if="store.isLoading(componentName)">
-      <VProgressCircular indeterminate color="primary" />
+      <div class="d-flex justify-center align-center h-100">
+        <VProgressCircular size="100" indeterminate color="primary" />
+      </div>
     </slot>
 
     <slot v-else />
