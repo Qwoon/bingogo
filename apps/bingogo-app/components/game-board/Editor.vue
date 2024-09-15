@@ -21,6 +21,8 @@ const props = withDefaults(defineProps<Props>(), {
 })
 const emit = defineEmits<Emits>()
 
+const loaderStore = useLoaderStore()
+
 const { handleSubmit, errors, resetForm } = useForm({
   validationSchema: boardValidationSchema,
   initialValues: props.board ? props.board : null
@@ -71,7 +73,7 @@ function onTileCreateClick(): void {
         <VCol cols="6">
           <VCheckbox label="Allow multiplayer" v-model="allowMultiplayer" value="value"></VCheckbox>
         </VCol>
-        <VCol cols="12" v-for="(field, index) in fields" :key="index">
+        <VCol cols="12" v-for="(field, index) in fields" :key="field.key">
           <VTextField
             append-icon="mdi-delete-outline"
             @click:append="remove(index)"
@@ -96,7 +98,9 @@ function onTileCreateClick(): void {
     <VCardText>
       <VRow>
         <VCol class="text-end">
-          <VBtn @click="submit">Submit</VBtn>
+          <VBtn :disabled="loaderStore.isLoading(BOARD_COMPONENT_LOADER_KEY)" @click="submit"
+            >Submit</VBtn
+          >
         </VCol>
       </VRow>
     </VCardText>
