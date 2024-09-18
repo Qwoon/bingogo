@@ -1,25 +1,33 @@
 <script setup lang="ts">
 import type { Board } from '~/domain'
 
+interface Emits {
+  (e: 'onDeleteClick', boardId: number): void
+}
+
 interface Props {
   board: Board.Props
 }
 
+const emit = defineEmits<Emits>()
 defineProps<Props>()
 
 const menu = ref<boolean>(false)
 
 const subtitle = computed(() => (board: Board.Props) => {
-  return `${board.createdAt}, by ${board.createdById ?? 'Anonymous'}
-`
+  return `${board.createdAt}, by ${board.createdById ?? 'Anonymous'}`
 })
 
-async function onGameClick(gameId: number): Promise<void> {
-  await navigateTo({ path: `board/${gameId}` })
+async function onBoardClick(boardId: number): Promise<void> {
+  await navigateTo({ path: `board/${boardId}` })
 }
 
-async function onEditClick(gameId: number): Promise<void> {
-  await navigateTo({ path: `board/edit/${gameId}` })
+async function onEditClick(boardId: number): Promise<void> {
+  await navigateTo({ path: `board/edit/${boardId}` })
+}
+
+async function onDeleteClick(boardId: number): Promise<void> {
+  emit('onDeleteClick', boardId)
 }
 </script>
 
@@ -32,7 +40,7 @@ async function onEditClick(gameId: number): Promise<void> {
         class="pa-5 cursor-pointer"
         v-bind="props"
         :elevation="isHovering ? 16 : 6"
-        @click="onGameClick(board.id)"
+        @click="onBoardClick(board.id)"
       >
         <template #append>
           <div>
@@ -46,6 +54,9 @@ async function onEditClick(gameId: number): Promise<void> {
                 <VList>
                   <VListItem link @click="onEditClick(board.id)">
                     <VListItemTitle> Edit Board </VListItemTitle>
+                  </VListItem>
+                  <VListItem link @click="onDeleteClick(board.id)">
+                    <VListItemTitle> Delete Board </VListItemTitle>
                   </VListItem>
                 </VList>
               </template>

@@ -74,5 +74,17 @@ export const useBoardStore = defineStore('BoardStore', () => {
     return data.value
   }
 
-  return { resource, resources, get, getList, create, update }
+  async function remove(id: number): Promise<Board> {
+    try {
+      const response = await $fetch<Board>(`${useRuntimeConfig().public.apiBase}${path}/${id}`, {
+        method: 'DELETE'
+      })
+
+      return construct(Board, response)
+    } catch (error) {
+      throw error.data.detail
+    }
+  }
+
+  return { resource, resources, get, getList, create, update, remove }
 })
