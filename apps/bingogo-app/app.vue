@@ -18,7 +18,6 @@ const snackbarColorResolver = computed(() => (type: NotificationType | null) => 
 
 <template>
   <VApp>
-    <AppNavbar />
     <VMain>
       <VSnackbar :color="snackbarColorResolver(notificationType)" v-model="hasNotification"
         >{{ text }}
