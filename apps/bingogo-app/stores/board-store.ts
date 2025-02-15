@@ -23,20 +23,6 @@ export const useBoardStore = defineStore('BoardStore', () => {
     return resource.value
   }
 
-  async function getList(): Promise<Board[]> {
-    const { data } = await useFetch(`${useRuntimeConfig().public.apiBase}${path}`, {
-      transform: (data: Board[]) => {
-        const res = new Array<Board>()
-        for (const item of JSON.parse(JSON.stringify(data))) res.push(construct(Board, item))
-
-        return res
-      }
-    })
-
-    resources.value = data.value
-    return resources.value
-  }
-
   async function create(forms: BoardForm[]): Promise<Board[]> {
     const { data, error } = await useAsyncData(
       () =>
@@ -86,5 +72,5 @@ export const useBoardStore = defineStore('BoardStore', () => {
     }
   }
 
-  return { resource, resources, get, getList, create, update, remove }
+  return { resource, resources, get, create, update, remove }
 })

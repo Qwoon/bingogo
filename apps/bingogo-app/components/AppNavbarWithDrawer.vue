@@ -1,33 +1,30 @@
 <script setup lang="ts">
+import { useDisplay } from 'vuetify'
+
 const store = useGameStore()
 const { currentGameName } = storeToRefs(store)
 
 const navItems = [
   {
-    title: 'Home',
+    title: 'Boards',
     to: { name: 'index' }
   },
   {
     title: 'Create board',
     to: { name: 'creator' }
-  },
-  {
-    title: 'My boards',
-    to: { name: 'my-boards' }
   }
 ]
 
-let showDrawer = ref<boolean>(false)
+const mdAndUp = useDisplay().mdAndUp
+const showDrawer = ref<boolean>(mdAndUp.value ? true : false)
 </script>
 
 <template>
-  <VAppBar app dense scroll-behavior="hide" class="bg-transparent">
-    <template #prepend>
-      <VAppBarNavIcon @click="showDrawer = !showDrawer"></VAppBarNavIcon>
-    </template>
-
+  <VAppBar scroll-behavior="" elevation="0" scroll-threshold="2">
     <template #title v-if="$vuetify.display.mdAndUp">
-      {{ currentGameName ?? 'Bingogo' }}
+      <h5 class="text-h5">
+        {{ currentGameName }}
+      </h5>
     </template>
 
     <template #default>
@@ -39,11 +36,7 @@ let showDrawer = ref<boolean>(false)
     </template>
   </VAppBar>
 
-  <VNavigationDrawer
-    temporary
-    v-model="showDrawer"
-    :location="$vuetify.display.mobile ? 'bottom' : undefined"
-  >
+  <VNavigationDrawer v-model="showDrawer" :width="mdAndUp ? 150 : 175">
     <VList lines="one">
       <VListItem
         class="bg-transparent"
