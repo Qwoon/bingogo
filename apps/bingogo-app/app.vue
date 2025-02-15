@@ -18,11 +18,13 @@ const snackbarColorResolver = computed(() => (type: NotificationType | null) => 
 
 <template>
   <VApp>
-    <VMain>
-      <VSnackbar :color="snackbarColorResolver(notificationType)" v-model="hasNotification"
-        >{{ text }}
-      </VSnackbar>
-      <NuxtPage />
-    </VMain>
+    <NuxtLayout>
+      <VMain>
+        <VSnackbar :color="snackbarColorResolver(notificationType)" v-model="hasNotification"
+          >{{ text }}
+        </VSnackbar>
+        <NuxtPage />
+      </VMain>
+    </NuxtLayout>
   </VApp>
 </template>

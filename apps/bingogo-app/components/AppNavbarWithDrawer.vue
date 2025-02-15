@@ -31,11 +31,6 @@ let showDrawer = ref<boolean>(false)
     </template>
 
     <template #default>
-      <!-- <div class="d-flex align-center ga-2">
-        <span>Connected</span>
-        <span class="status-indicator bg-green rounded-circle"></span>
-      </div> -->
-
       <VSpacer />
     </template>
 
@@ -62,10 +57,3 @@ let showDrawer = ref<boolean>(false)
     </VList>
   </VNavigationDrawer>
 </template>
-
-<style scoped lang="scss">
-.status-indicator {
-  height: 10px;
-  width: 10px;
-}
-</style>
