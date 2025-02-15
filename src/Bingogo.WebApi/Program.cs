@@ -39,9 +39,15 @@ namespace Bingogo.WebApi
                 .AddHealthChecks()
                 .AddDbContextCheck<DbContext>();
 
+            // Cache
             builder.Services.AddMemoryCache();
 
             builder.Services.AddAuthentication()
+                .AddGoogle(options =>
+                {
+                    options.ClientId = builder.Configuration["Auth:Google:ClientId"];
+                    options.ClientSecret = builder.Configuration["Auth:Google:ClientSecret"];
+                })
                 .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme, options =>
                 {
                     options.SaveToken = true;
