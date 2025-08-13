@@ -1,21 +1,25 @@
 <script setup lang="ts">
-import type { Board } from '~/domain'
+import type { BoardQuery } from '~/domain'
 
-const store = useBoardStore()
+const searchForm = ref<Partial<BoardQuery.Props>>({
+  limit: 24,
+  offset: 0
+})
 
-const {
-  data: resources,
-  refresh,
-  status
-} = await useLazyFetch<Board[]>(() => `${useRuntimeConfig().public.apiBase}/boards`, {})
+const query = computed((): Partial<BoardQuery.Props> => {
+  return {
+    ...searchForm.value
+  }
+})
 
-onBeforeMount(async () => refresh())
+const { data: resources, error, status } = await useApi().getBoards(query)
 
 async function handleDeleteClick(boardId: number): Promise<void> {
   const answer = window.confirm('Are you sure you want to delete the board?')
 
   if (answer) {
-    await store.remove(boardId)
+    await useApi().deleteBoard(boardId)
+    //const { data: resources } = await useApi().getBoards(query)
     const index = resources.value.findIndex((x) => x.id === boardId)
     resources.value.splice(index, 1)
   }

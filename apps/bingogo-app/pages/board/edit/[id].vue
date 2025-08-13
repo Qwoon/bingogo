@@ -2,37 +2,27 @@
 import type { Board } from '~/domain/board'
 import type { BoardForm } from '~/forms'
 
-const route = useRoute()
+const { params } = useRoute()
 
 const notificationStore = useNotificationStore()
-const boardStore = useBoardStore()
-const boardTileStore = useBoardTileStore()
 
-const boardId = ref<string>(route.params.id as string)
-const {
-  data: boardLocal,
-  refresh,
-  status
-} = await useLazyFetch<Board>(() => `${useRuntimeConfig().public.apiBase}/boards/${boardId.value}`)
-
-onBeforeMount(async () => {
-  if (boardId) {
-    refresh()
-  } else navigateTo('/')
-})
+const boardId = ref<string>(params.id as string)
+const { data: boardLocal, status } = await useLazyFetch<Board>(
+  () => `${useRuntimeConfig().public.apiBase}/boards/${boardId.value}`
+)
 
 async function handleSubmit(form: BoardForm): Promise<void> {
   // Update board
-  await boardStore.update(form.id, form)
+  await useApi().updateBoard(form.id, form)
 
   // Create new Board -> Tiles
   const nonPersistantTiles = form.tiles.filter((x) => !x.id)
   if (nonPersistantTiles.length > 0) {
-    await boardTileStore.create(nonPersistantTiles)
+    await useApi().createBoardTile(nonPersistantTiles)
   }
   // Update Board -> Tiles
   const props = Object.fromEntries(form.tiles.filter((t) => t.id).map((t) => [t.id, { ...t }]))
-  await boardTileStore.update(props)
+  await useApi().updateBoardTiles(props)
 
   // Delete Board -> Tiles
   const propsToDelete = boardLocal.value.tiles.filter(
@@ -43,9 +33,7 @@ async function handleSubmit(form: BoardForm): Promise<void> {
         .indexOf(t.id) === -1
   )
 
-  for (const prop of propsToDelete) await boardTileStore.remove(prop.id)
-
-  await refresh()
+  for (const prop of propsToDelete) await useApi().deleteBoardTile(prop.id)
 
   notificationStore.setMessage('Changes saved.')
 }

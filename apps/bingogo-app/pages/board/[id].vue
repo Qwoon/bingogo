@@ -1,23 +1,8 @@
 <script setup lang="ts">
-import type { Board } from '~/domain'
+const { params } = useRoute()
+const boardId = ref<string>(params.id as string)
 
-const route = useRoute()
-const boardId = ref<string>(route.params.id as string)
-
-const {
-  data: resource,
-  refresh,
-  status
-} = await useLazyFetch<Board>(
-  () => `${useRuntimeConfig().public.apiBase}/boards/${boardId.value}`,
-  {}
-)
-
-onBeforeMount(async () => {
-  if (boardId) {
-    refresh()
-  } else navigateTo('/')
-})
+const { data: resource } = await useApi().getBoardById(parseInt(boardId.value))
 </script>
 <template>
   <section v-if="resource" class="h-screen d-flex flex-wrap justify-center align-center">
