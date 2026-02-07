@@ -9,13 +9,17 @@ const props = defineProps<{
 const tiles = ref<BoardTile.Props[][]>()
 const childrensRefs = ref<InstanceType<typeof Tile>[]>()
 
-let uncheckedTilesCount = ref<number>()
-
-const { animateFlipTile } = useAnimate()
-
 const isChecked = computed(() => (rowIndex: number, colIndex: number) => {
   return tiles.value[rowIndex][colIndex].isChecked
 })
+
+const uncheckedTilesCount = computed<number>(
+  () =>
+    (uncheckedTilesCount.value = tiles.value
+      ?.flatMap((x) => x)
+      ?.map((x) => x.isChecked)
+      ?.filter((x) => !x).length)
+)
 
 onMounted(() => {
   let initTiles = props.tiles
@@ -23,25 +27,15 @@ onMounted(() => {
   if (initTiles.length % 6 !== 0)
     while (initTiles.length % 6 !== 0) initTiles.push(BoardTile.constructEmpty())
 
-  tiles.value = useListToMatrix(initTiles, 6)
-
-  uncheckedTilesCount.value = tiles.value
-    .flatMap((x) => x)
-    .map((x) => x.isChecked)
-    .filter((x) => !x).length
+  tiles.value = listToMatrix(initTiles, 6)
 })
 
-watch(uncheckedTilesCount, (newValue) => {
-  if (newValue === 0) setTimeout(() => endGame(), 400)
+watch(uncheckedTilesCount, (newValue: number) => {
+  if (newValue === 0) setTimeout(() => endGame(), 200)
 })
 
 function onTileCheck(rowIndex: number, colIndex: number): void {
   tiles.value[rowIndex][colIndex].isChecked = !tiles.value[rowIndex][colIndex].isChecked
-
-  uncheckedTilesCount.value = tiles.value
-    .flatMap((x) => x)
-    .map((x) => x.isChecked)
-    .filter((x) => !x).length
 }
 
 function endGame(): void {

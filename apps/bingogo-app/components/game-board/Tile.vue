@@ -14,17 +14,15 @@ interface Emit {
 const props = defineProps<Props>()
 const emit = defineEmits<Emit>()
 
+const { isAnimationPlaying, animateFlipTile } = useAnimate()
+
 const elementId = computed(() => `${props.rowIndex}-${props.colIndex}`)
 
-const { isAnimationPlaying, animateFlipTile } = useAnimate()
 function onTileCheck(rowIndex: number, colIndex: number): void {
   flipTile()
-
   emit('update:isChecked', rowIndex, colIndex)
 }
 
-// FIXME: It might be a better idea to flip +180deg and second time -180deg
-// so that we dont go above 360deg
 function flipTile() {
   nextTick()
   animateFlipTile(elementId.value)
