@@ -23,6 +23,13 @@ const resource = ref<BoardTile.Props[]>([
       style="top: 16px; right: 16px"
       @click="isEditMode = !isEditMode"
     />
+    <VBtn
+      icon="mdi-home"
+      variant="text"
+      class="position-absolute"
+      style="top: 16px; left: 16px"
+      @click="navigateTo('/')"
+    />
     <GameBoard :tiles="resource" :is-edit-mode="isEditMode" />
   </section>
 </template>
