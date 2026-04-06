@@ -4,7 +4,12 @@ import type { BoardForm, BoardTileForm } from '~/forms'
 
 export const useApi = () => {
   return {
-    // Boards
+    /** Boards */
+
+    /**
+     * Retrieves boards by query.
+     * @param query Parameter to query against.
+     */
     getBoards(query: ComputedRef<Partial<BoardQuery.Props>>) {
       return useFetch<Board.Props[]>(() => `/boards`, {
         query: query,
@@ -12,6 +17,11 @@ export const useApi = () => {
       })
     },
 
+    /**
+     * Retrieves board by id and query.
+     * @param id Board id.
+     * @param query Parameter to query against.
+     */
     getBoardById(id: number, query?: ResourceQuery.Props) {
       return useFetch<Board.Props>(() => `/boards/${id}`, {
         query: query,
@@ -19,6 +29,10 @@ export const useApi = () => {
       })
     },
 
+    /**
+     * Creates a new board.
+     * @param forms Board form.
+     */
     createBoard(forms: BoardForm[]) {
       return $fetch(`/boards`, {
         method: 'POST',
@@ -27,6 +41,11 @@ export const useApi = () => {
       })
     },
 
+    /**
+     * Updates exising board by di.
+     * @param id Board id.
+     * @param props Props to be used to update board.
+     */
     updateBoard(id: number, props: Board.Props) {
       return $fetch(`/boards/${id}`, {
         method: 'PUT',
@@ -35,6 +54,10 @@ export const useApi = () => {
       })
     },
 
+    /**
+     * Delete board by id.
+     * @param id Board id.
+     */
     deleteBoard(id: number) {
       return $fetch(`/boards/${id}`, {
         method: 'DELETE',
