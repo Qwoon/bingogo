@@ -1,18 +1,47 @@
+volumes:
+  mysql-data:
+
+networks:
+  default:
+    name: bing
+    external: false
+
 services:
+  # MYSQL
+  mysql:
+    image: mysql:latest
+    container_name: bing-mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    ports:
+      - '3306:3306'
+    volumes:
+      - mysql-data:/var/lib/mysql
+    healthcheck:
+      test: ['CMD', 'mysqladmin', 'ping', '-h', 'localhost']
+      timeout: 20s
+      retries: 10
+
   #API Service
   api:
     image: bing-api:latest
     container_name: bing-api
     tty: true
+    depends_on:
+      mysql:
+        condition: service_healthy
     ports:
-      - '7000:7000'
-      - '7001:7001'
+      - '${ASPNETCORE_HTTP_PORT}:7000'
+      - '${ASPNETCORE_HTTPS_PORT}:7001'
     build:
       context: .
       target: runtime
       dockerfile: ./src/Bingogo.WebApi/Dockerfile
       args:
-        CONFIGURATION: Debug
+        CONFIGURATION: ${ASPNETCORE_CONFIGURATION}
     environment:
       ASPNETCORE_ENVIRONMENT: Local
       ASPNETCORE_URLS: http://+:7000;https://+:7001
@@ -20,4 +49,5 @@ services:
       ASPNETCORE_Kestrel__Certificates__Default__Password: development
       CUSTOMCONNSTR_MySql: server=host.docker.internal;port=3306;uid=root;password=root;database=bingogo
     volumes:
+      - ./src/Bingogo.WebApi/appsettings.Production.json:/srv/appsettings.Production.json:ro
       - ./https:/https:ro
