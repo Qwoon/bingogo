@@ -12,7 +12,10 @@ const resource = ref<BoardTile.Props[]>([
 ])
 </script>
 <template>
-  <section v-if="resource" class="h-screen d-flex flex-wrap justify-center align-center position-relative">
+  <section
+    v-if="resource"
+    class="h-screen d-flex flex-wrap justify-center align-center position-relative"
+  >
     <VBtn
       :icon="isEditMode ? 'mdi-check' : 'mdi-pencil'"
       variant="text"

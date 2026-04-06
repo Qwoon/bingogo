@@ -2,10 +2,13 @@
 import { BoardTile } from '~/domain'
 import Tile from './Tile.vue'
 
+/** Props */
 const props = defineProps<{
   tiles: BoardTile.Props[]
   isEditMode: boolean
 }>()
+
+/** State and refs */
 const winDialog = ref<boolean>(false)
 const editDialog = ref<boolean>(false)
 const editingTile = ref<{ rowIndex: number; colIndex: number; title: string } | null>(null)
@@ -15,6 +18,13 @@ const isDirty = ref<boolean>(false)
 
 let originalTitles: string[] = []
 
+/** Lifecycle-hooks */
+onMounted(() => {
+  buildTileMatrix(props.tiles)
+  originalTitles = props.tiles.map((t) => t.title)
+})
+
+/** Functions */
 const isChecked = computed(() => (rowIndex: number, colIndex: number) => {
   return tiles.value[rowIndex][colIndex].isChecked
 })
@@ -28,11 +38,6 @@ const uncheckedTilesCount = computed<number>(
 )
 
 const flatRealTiles = computed(() => tiles.value?.flatMap((x) => x).filter((x) => !x.isMock) ?? [])
-
-onMounted(() => {
-  buildTileMatrix(props.tiles)
-  originalTitles = props.tiles.map((t) => t.title)
-})
 
 watch(uncheckedTilesCount, (newValue: number) => {
   if (!props.isEditMode && newValue === 0) setTimeout(() => endGame(), 200)
@@ -77,23 +82,27 @@ function addTile(): void {
   checkDirty()
 }
 
+/** Checks if the tile array is changed and save should be applied. */
 function checkDirty(): void {
   const current = flatRealTiles.value.map((t) => t.title)
   isDirty.value =
     current.length !== originalTitles.length || current.some((t, i) => t !== originalTitles[i])
 }
 
+/** Save edit changes */
 function saveChanges(): void {
   originalTitles = flatRealTiles.value.map((t) => t.title)
   isDirty.value = false
   // TODO: persist via API
 }
 
+/** Ends the game and plays the party animation. */
 function endGame(): void {
   useStartParty()
   winDialog.value = true
 }
 
+/** Reset the game and mark all tile as unchecked.  */
 function resetGame(): void {
   winDialog.value = false
   for (let i in tiles.value)
@@ -160,7 +169,7 @@ function resetGame(): void {
           @click="openEditDialog(rowIndex, colIndex)"
         >
           <Icon
-            name="mdi-pencil"
+            name="mdi:pencil"
             size="16"
             class="position-absolute opacity-40"
             style="top: 6px; right: 6px"
@@ -202,7 +211,7 @@ function resetGame(): void {
       <VCol cols="auto">
         <VBtn
           v-if="isDirty"
-          color="primary"
+          color="success"
           variant="flat"
           prepend-icon="mdi-content-save"
           @click="saveChanges"
