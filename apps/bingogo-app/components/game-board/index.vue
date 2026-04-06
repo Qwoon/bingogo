@@ -6,6 +6,7 @@ const props = defineProps<{
   tiles: BoardTile.Props[]
 }>()
 
+const dialog = ref<boolean>(false)
 const tiles = ref<BoardTile.Props[][]>()
 const childrensRefs = ref<InstanceType<typeof Tile>[]>()
 
@@ -40,6 +41,11 @@ function onTileCheck(rowIndex: number, colIndex: number): void {
 
 function endGame(): void {
   useStartParty()
+  dialog.value = true
+}
+
+function resetGame() {
+  dialog.value = false
 
   // reset
   for (let i in tiles.value)
@@ -55,6 +61,18 @@ function endGame(): void {
 
 <template>
   <VContainer>
+    <VDialog v-model="dialog" width="auto">
+      <VCard
+        max-width="600"
+        text="Play again or create new board from scratch!"
+        title="Congratulations!"
+      >
+        <template v-slot:actions>
+          <VBtn class="ms-auto" text="Play Again" @click="resetGame"></VBtn>
+        </template>
+      </VCard>
+    </VDialog>
+
     <VRow v-for="(row, rowIndex) in tiles" class="justify-center">
       <VCol v-for="(col, colIndex) in row" :style="{ 'flex-grow': 0 }">
         <GameBoardTile
