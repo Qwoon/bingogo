@@ -8,3 +8,6 @@
 - Nuxt app running on TS under: `./apps/bingogo-app` directory;
 - DotNet app under: `./src` directory;
 - Vuetify as the main component framework, all components should be used from it as much as possible.
+
+## Terminology
+- Use the term "board card" and "board tile" or just "tile" interchangeably. 
